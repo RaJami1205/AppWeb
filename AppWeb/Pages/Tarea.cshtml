@@ -8,7 +8,7 @@
     <section class="form-register">
         <h1>Tarea</h1>
 
-        <form action="/Home/GuardarDatos" method="post" autocomplete="off">
+        <form method="post" autocomplete="off">
             <input class="controls" type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre del departamento" required>
 
             <input class="controls" type="text" name="descripcion" id="descripcion" placeholder="Ingrese una descripción" required>
@@ -17,7 +17,7 @@
 
             <input class="controls" type="text" name="tipo" id="tipo" placeholder="Ingrese el tipo de tarea" required>
 
-            <button type="submit" class="buttoms">Registrar</button>
+            <button type="submit" asp-page-handler="Registrar_tarea" class="buttoms">Registrar</button>
         </form>
     </section>
 </body>

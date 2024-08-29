@@ -8,7 +8,7 @@
     <section class="form-register">
         <h1>Empleado</h1>
 
-        <form action="/Home/GuardarDatos" method="post" autocomplete="off">
+        <form method="post" autocomplete="off">
             <input class="controls" type="text" name="cedula" id="cedula" placeholder="Ingrese la cedula" required>
 
             <input class="controls" type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre" required>
@@ -17,7 +17,9 @@
 
             <input class="controls" type="text" name="apellido2" id="apellido2" placeholder="Ingrese el segundo apellido" required>
 
-            <button type="submit" class="buttoms">Registrar</button>
+            <input class="controls" type="text" name="telefono" id="apellido2" placeholder="Ingrese el teléfono" required>
+
+            <button type="submit" asp-page-handler="Registrar_empleado" class="buttoms">Registrar</button>
         </form>
     </section>
 </body>

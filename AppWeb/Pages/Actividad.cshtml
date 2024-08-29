@@ -8,7 +8,7 @@
     <section class="form-register">
         <h1>Actividad</h1>
 
-        <form action="/Home/GuardarDatos" method="post" autocomplete="off">
+        <form method="post" autocomplete="off">
             <input class="controls" type="text" name="empleado" id="empleado" placeholder="Ingrese el empleado" required>
 
             <input class="controls" type="datetime" name="fechaHora_inicio" id="fechaHora_inicio" placeholder="Ingrese la fecha y hora de inicio" required>
@@ -21,7 +21,7 @@
 
             <input class="controls" type="text" name="etapa" id="etapa" placeholder="Ingrese la etapa de la actividad" required>
 
-            <button type="submit" class="buttoms">Registrar</button>
+            <button type="submit" asp-page-handler="Registrar_actividad" class="buttoms">Registrar</button>
         </form>
     </section>
 </body>

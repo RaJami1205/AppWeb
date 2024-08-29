@@ -8,14 +8,14 @@
 <section class="form-register">
     <h1>Departamento</h1>
 
-    <form action="/Home/GuardarDatos" method="post" autocomplete="off">
+    <form method="post" autocomplete="off">
         <input class="controls" type="text" name="codigo" id="codigo" placeholder="Ingrese el codigo del departamento" required>
 
         <input class="controls" type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre del departamento" required>
 
         <input class="controls" type="text" name="jefe" id="jefe" placeholder="Ingrese el jefe del departamento" required>
 
-        <button type="submit" class="buttoms">Registrar</button>
+            <button type="submit" asp-page-handler="Registrar_depa" class="buttoms">Registrar</button>
     </form>
 </section>
 </body>
