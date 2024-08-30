@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AppWeb.Pages
+namespace AppWeb.Pages.Tarea
 {
-    public class EmpleadoModel : PageModel
+    public class Tarea_formModel : PageModel
     {
         public void OnGet()
         {

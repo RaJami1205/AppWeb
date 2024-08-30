@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AppWeb.Pages
+namespace AppWeb.Pages.Empleado
 {
-    public class ActividadModel : PageModel
+    public class Empleado_listModel : PageModel
     {
         public void OnGet()
         {

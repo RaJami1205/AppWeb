@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
@@ -11,3 +11,4 @@ public class ConexionBD{
         stringConnection= ConfigurationManager.ConnectionStrings["MiConexion"].ConnectionString;
     }
 }
+*/

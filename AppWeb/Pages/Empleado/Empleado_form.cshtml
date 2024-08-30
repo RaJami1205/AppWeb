@@ -1,23 +1,26 @@
 ﻿@page
-@model PrivacyModel
+@model AppWeb.Pages.Empleado.Empleado_formModel
 @{
-    ViewData["Title"] = "Privacy Policy";
 }
 
 <body>
-<section class="form-register">
-    <h1>Departamento</h1>
+    <section class="form-register">
+        <h1>Empleado</h1>
 
-    <form method="post" autocomplete="off">
-        <input class="controls" type="text" name="codigo" id="codigo" placeholder="Ingrese el codigo del departamento" required>
+        <form method="post" autocomplete="off">
+            <input class="controls" type="text" name="cedula" id="cedula" placeholder="Ingrese la cedula" required>
 
-        <input class="controls" type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre del departamento" required>
+            <input class="controls" type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre" required>
 
-        <input class="controls" type="text" name="jefe" id="jefe" placeholder="Ingrese el jefe del departamento" required>
+            <input class="controls" type="text" name="apellido1" id="apellido1" placeholder="Ingrese el primer apellido" required>
 
-            <button type="submit" asp-page-handler="Registrar_depa" class="buttoms">Registrar</button>
-    </form>
-</section>
+            <input class="controls" type="text" name="apellido2" id="apellido2" placeholder="Ingrese el segundo apellido" required>
+
+            <input class="controls" type="text" name="telefono" id="telefono" placeholder="Ingrese el teléfono" required>
+
+            <button type="submit" asp-page-handler="Registrar_empleado" class="buttoms">Registrar</button>
+        </form>
+    </section>
 </body>
 
 <!-- Estilos CSS para la página -->

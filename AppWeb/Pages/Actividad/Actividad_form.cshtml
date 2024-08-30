@@ -1,25 +1,26 @@
 ﻿@page
-@model AppWeb.Pages.EmpleadoModel
+@model AppWeb.Pages.Actividad.Actividad_formModel
 @{
-    ViewData["Title"] = "Empleado";
 }
 
 <body>
     <section class="form-register">
-        <h1>Empleado</h1>
+        <h1>Actividad</h1>
 
         <form method="post" autocomplete="off">
-            <input class="controls" type="text" name="cedula" id="cedula" placeholder="Ingrese la cedula" required>
+            <input class="controls" type="text" name="empleado" id="empleado" placeholder="Ingrese el empleado" required>
 
-            <input class="controls" type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre" required>
+            <input class="controls" type="datetime" name="fechaHora_inicio" id="fechaHora_inicio" placeholder="Ingrese la fecha y hora de inicio" required>
 
-            <input class="controls" type="text" name="apellido1" id="apellido1" placeholder="Ingrese el primer apellido" required>
+            <input class="controls" type="datetime" name="fechaHora_final" id="fechaHora_final" placeholder="Ingrese la fecha y hora final" required>
 
-            <input class="controls" type="text" name="apellido2" id="apellido2" placeholder="Ingrese el segundo apellido" required>
+            <input class="controls" type="datetime" name="hora" id="hora" placeholder="Ingrese la cantidad de horas" required>
 
-            <input class="controls" type="text" name="telefono" id="apellido2" placeholder="Ingrese el teléfono" required>
+            <input class="controls" type="text" name="tipo" id="tipo" placeholder="Ingrese el tipo de actividad" required>
 
-            <button type="submit" asp-page-handler="Registrar_empleado" class="buttoms">Registrar</button>
+            <input class="controls" type="text" name="etapa" id="etapa" placeholder="Ingrese la etapa de la actividad" required>
+
+            <button type="submit" asp-page-handler="Registrar_actividad" class="buttoms">Registrar</button>
         </form>
     </section>
 </body>

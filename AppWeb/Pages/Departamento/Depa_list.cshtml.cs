@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AppWeb.Pages
+namespace AppWeb.Pages.Departamento
 {
-    public class TareaModel : PageModel
+    public class Depa_listModel : PageModel
     {
         public void OnGet()
         {

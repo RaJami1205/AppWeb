@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AppWeb.Pages
+namespace AppWeb.Pages.Tarea
 {
-    public class IndexModel : PageModel
+    public class Tarea_listModel : PageModel
     {
         public void OnGet()
         {

@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AppWeb.Pages
+namespace AppWeb.Pages.Departamento
 {
-    public class IndexModel : PageModel
+    public class Depa_formModel : PageModel
     {
         public void OnGet()
         {

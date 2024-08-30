@@ -1,27 +1,30 @@
 ﻿@page
-@model AppWeb.Pages.ActividadModel
+@model AppWeb.Pages.Proyectos.Proyect_formModel
 @{
-    ViewData["Title"] = "Actividad";
 }
 
 <body>
     <section class="form-register">
-        <h1>Actividad</h1>
+        <h1>Proyecto</h1>
 
         <form method="post" autocomplete="off">
-            <input class="controls" type="text" name="empleado" id="empleado" placeholder="Ingrese el empleado" required>
+            <input class="controls" type="text" name="nombre_portafolio" id="nombre_portafolio" placeholder="Ingrese el nombre portafolio" required>
 
-            <input class="controls" type="datetime" name="fechaHora_inicio" id="fechaHora_inicio" placeholder="Ingrese la fecha y hora de inicio" required>
+            <input class="controls" type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre del proyecto" required>
 
-            <input class="controls" type="datetime" name="fechaHora_final" id="fechaHora_final" placeholder="Ingrese la fecha y hora final" required>
+            <input class="controls" type="text" name="año" id="año" placeholder="Ingrese el año" required>
 
-            <input class="controls" type="datetime" name="hora" id="hora" placeholder="Ingrese la cantidad de horas" required>
+            <input class="controls" type="text" name="trimestre" id="trimestre" placeholder="Ingrese el trimestre" required>
 
-            <input class="controls" type="text" name="tipo" id="tipo" placeholder="Ingrese el tipo de actividad" required>
+            <input class="controls" type="text" name="descripcion" id="descripcion" placeholder="Ingrese una descripción" required>
 
-            <input class="controls" type="text" name="etapa" id="etapa" placeholder="Ingrese la etapa de la actividad" required>
+            <input class="controls" type="text" name="tipo" id="tipo" placeholder="Ingrese el tipo de proyecto" required>
 
-            <button type="submit" asp-page-handler="Registrar_actividad" class="buttoms">Registrar</button>
+            <input class="controls" type="date" name="fecha_inicio" id="fecha_inicio" required>
+
+            <input class="controls" type="date" name="fecha_cierre" id="fecha_cierre" required>
+
+            <button type="submit" asp-page-handler="Registrar_proye" class="buttoms">Registrar</button>
         </form>
     </section>
 </body>
