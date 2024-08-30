@@ -1,5 +1,5 @@
 ﻿@page
-@model AppWeb.Pages.Actividad.Actividad_formModel
+@model AppWeb.Pages.Seguimiento.follow_activityModel
 @{
 }
 
@@ -8,17 +8,15 @@
         <h1>Actividad</h1>
 
         <form method="post" autocomplete="off">
-            <input class="controls" type="text" name="empleado" id="empleado" placeholder="Ingrese el empleado" required>
 
             <input class="controls" type="datetime" name="fechaHora_inicio" id="fechaHora_inicio" placeholder="Ingrese la fecha y hora de inicio" required>
 
-            <input class="controls" type="datetime" name="fechaHora_final" id="fechaHora_final" placeholder="Ingrese la fecha y hora final" required>
-
-            <input class="controls" type="datetime" name="hora" id="hora" placeholder="Ingrese la cantidad de horas" required>
-
-            <input class="controls" type="text" name="tipo" id="tipo" placeholder="Ingrese el tipo de actividad" required>
-
-            <input class="controls" type="text" name="etapa" id="etapa" value="Testing" readonly>
+            <label for="etapa">Asignar Etapa</label>
+            <select class="controls" name="etapa" id="etapa">
+                <option value="Testing">Testing</option>
+                <option value="Revisión">Revisión</option>
+                <option value="Finalizada">Finalizada</option>
+            </select>
 
             <button type="submit" asp-page-handler="Registrar_actividad" class="buttoms">Registrar</button>
         </form>

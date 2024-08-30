@@ -25,8 +25,7 @@ namespace AppWeb.Pages.Proyectos
                         {
                             while (reader.Read())
                             {
-                               
-
+                             
                                 ProyectoInfo Proyectoinfo = new ProyectoInfo();
                                 Proyectoinfo.nombre_proyecto = reader.GetString(0);
                                 Proyectoinfo.nombre_portafolio = reader.GetString(1);
