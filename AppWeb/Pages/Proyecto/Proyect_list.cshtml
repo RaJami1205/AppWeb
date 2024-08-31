@@ -1,37 +1,55 @@
 ﻿@page
 @model AppWeb.Pages.Proyectos.Proyect_listModel
-@{
-}
 
-<br>
-<h2>Lista de Proyectos</h2>
-<a class="btn btn-primary btn-sm" href="/Proyecto/Proyect_form"> Nuevo Proyecto</a>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Portafolio</th>
-            <th>Nombre</th>
-            <th>Año</th>
-            <th>Trimestre</th>
-            <th>Descripción</th>
-            <th>Tipo</th>
-            <th>Fecha Inicio</th>
-            <th>Fecha Cierre</th>
-            <th>Codigo Departamento</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.listaProyectos)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Proyectos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Lista de Proyectos</h2>
+        @if (Model.listaProyectos.Count == 0)
         {
-            <td>@item.nombre_portafolio</td>
-            <td>@item.nombre_proyecto</td>
-            <td>@item.año</td>
-            <td>@item.trimestre</td>
-            <td>@item.descripcion</td>
-            <td>@item.tipo</td>
-            <td>@item.fecha_inicio</td>
-            <td>@item.fecha_cierre</td>
-            <td>@item.codigoDep</td>
+            <p>No hay proyectos disponibles.</p>
         }
-    </tbody>
-</table>
+        else
+        {
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nombre del Proyecto</th>
+                        <th>Portafolio</th>
+                        <th>Descripción</th>
+                        <th>Tipo</th>
+                        <th>Año</th>
+                        <th>Trimestre</th>
+                        <th>Fecha de Inicio</th>
+                        <th>Fecha de Cierre</th>
+                        <th>Código de Departamento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var proyecto in Model.listaProyectos)
+                    {
+                        <tr>
+                            <td>@proyecto.nombre_proyecto</td>
+                            <td>@proyecto.nombre_portafolio</td>
+                            <td>@proyecto.descripcion</td>
+                            <td>@proyecto.tipo</td>
+                            <td>@proyecto.año</td>
+                            <td>@proyecto.trimestre</td>
+                            <td>@proyecto.fecha_inicio</td>
+                            <td>@proyecto.fecha_cierre</td>
+                            <td>@proyecto.codigoDep</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</body>
+</html>

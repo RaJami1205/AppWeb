@@ -25,7 +25,7 @@ namespace AppWeb.Pages.Proyectos
                 string query = @"
                     INSERT INTO Proyecto (nombre_proyecto, nombre_portafolio, descripcion, tipo, año, trimestre, fecha_inicio, fecha_cierre, codigoDep)
                     VALUES (@nombre_proyecto, @nombre_portafolio, @descripcion, @tipo, @año, @trimestre, @fecha_inicio, @fecha_cierre, @codigoDep)";
-                    
+
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@nombre_proyecto", Proyecto.nombre_proyecto);
@@ -44,18 +44,4 @@ namespace AppWeb.Pages.Proyectos
             }
         }
     }
-
-    public class ProyectoInfo
-    {
-        public string nombre_proyecto { get; set; }
-        public string nombre_portafolio { get; set; }
-        public string descripcion { get; set; }
-        public string tipo { get; set; }
-        public int año { get; set; }
-        public int trimestre { get; set; }
-        public string fecha_inicio { get; set; }
-        public string fecha_cierre { get; set; }
-        public int codigoDep { get; set; }
-    }
 }
-

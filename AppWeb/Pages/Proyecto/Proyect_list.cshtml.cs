@@ -10,8 +10,9 @@ namespace AppWeb.Pages.Proyectos
 
         public void OnGet()
         {
-           
-            string connectionString = "Data Source=.\\mysqlserver;Initial Catalog=GestionProyectosTareas;Persist Security Info=True;User ID=sa;Password=***********;Trust Server Certificate=True";
+
+            string connectionString = "Data source=" + Environment.MachineName + "; Initial Catalog=GestionProyectosTareas; Integrated Security=True";
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -31,11 +32,11 @@ namespace AppWeb.Pages.Proyectos
                                 Proyectoinfo.nombre_portafolio = reader.GetString(1);
                                 Proyectoinfo.descripcion = reader.GetString(2);
                                 Proyectoinfo.tipo = reader.GetString(3);
-                                Proyectoinfo.año = reader.GetInt32(4);
-                                Proyectoinfo.trimestre = reader.GetInt32(5);
-                                Proyectoinfo.fecha_inicio = reader.GetString(6);
-                                Proyectoinfo.fecha_cierre = reader.GetString(7);
-                                Proyectoinfo.codigoDep = reader.GetInt32(8);
+                                Proyectoinfo.año = "" + reader.GetInt32(4);
+                                Proyectoinfo.trimestre = "" + reader.GetInt32(5);
+                                Proyectoinfo.fecha_inicio = "" + reader.GetDateTime(6).ToString();
+                                Proyectoinfo.fecha_cierre = "" + reader.GetDateTime(7).ToString();
+                                Proyectoinfo.codigoDep = "" + reader.GetInt32(8);
 
                                 listaProyectos.Add(Proyectoinfo);
                             }
@@ -51,7 +52,16 @@ namespace AppWeb.Pages.Proyectos
         }
     }
 
+    public class ProyectoInfo
+    {
+        public string nombre_proyecto { get; set; }
+        public string nombre_portafolio { get; set; }
+        public string descripcion { get; set; }
+        public string tipo { get; set; }
+        public string año { get; set; }
+        public string trimestre { get; set; }
+        public string fecha_inicio { get; set; }
+        public string fecha_cierre { get; set; }
+        public string codigoDep { get; set; }
+    }
 }
-
-
-
