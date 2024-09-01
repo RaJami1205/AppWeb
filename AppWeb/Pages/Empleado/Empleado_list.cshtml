@@ -1,19 +1,47 @@
 ﻿@page
 @model AppWeb.Pages.Empleado.Empleado_listModel
-@{
-}
 
-<br>
-<h2>Lista de Empleados</h2>
-<a class="btn btn-primary btn-sm" href="/Empleado/Empleado_form"> Nuevo Empleado</a>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Cedula</th>
-            <th>Nombre</th>
-            <th>Primer Apellido</th>
-            <th>Segundo Apellido</th>
-            <th>Telefono</th>
-        </tr>
-    </thead>
-</table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Empleados</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Lista de Empleados</h2>
+        @if (Model.listaEmpleados.Count == 0)
+        {
+            <p>No hay empleados disponibles.</p>
+        }
+        else
+        {
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Cédula</th>
+                        <th>Nombre</th>
+                        <th>Primer Apellido</th>
+                        <th>Segundo Apellido</th>
+                        <th>Teléfono</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var empleado in Model.listaEmpleados)
+                    {
+                        <tr>
+                            <td>@empleado.cedula</td>
+                            <td>@empleado.nombre</td>
+                            <td>@empleado.apellido1</td>
+                            <td>@empleado.apellido2</td>
+                            <td>@empleado.telefono</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</body>
+</html>

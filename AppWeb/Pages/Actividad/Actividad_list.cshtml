@@ -1,20 +1,51 @@
 ﻿@page
 @model AppWeb.Pages.Actividad.Actividad_listModel
-@{
-}
 
-<br>
-<h2>Lista de Actividades</h2>
-<a class="btn btn-primary btn-sm" href="/Actividad/Actividad_form"> Nueva Actividad</a>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Empleado</th>
-            <th>fecha-Hora Inicio</th>
-            <th>fecha-Hora Final</th>
-            <th>Hora</th>
-            <th>Tipo</th>
-            <th>Etapa</th>
-        </tr>
-    </thead>
-</table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Actividades</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Lista de Actividades</h2>
+        @if (Model.listaActividades.Count == 0)
+        {
+            <p>No hay actividades disponibles.</p>
+        }
+        else
+        {
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Fecha y Hora de Inicio</th>
+                        <th>Fecha y Hora Final</th>
+                        <th>Horas</th>
+                        <th>Tipo</th>
+                        <th>Etapa</th>
+                        <th>Nombre de Tarea</th>
+                        <th>Cédula del Empleado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var actividad in Model.listaActividades)
+                    {
+                        <tr>
+                            <td>@actividad.fecha_hora_inicio</td>
+                            <td>@actividad.fecha_hora_final</td>
+                            <td>@actividad.horas</td>
+                            <td>@actividad.tipo</td>
+                            <td>@actividad.etapa</td>
+                            <td>@actividad.nombre_tarea</td>
+                            <td>@actividad.cedulaEmpleado</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</body>
+</html>

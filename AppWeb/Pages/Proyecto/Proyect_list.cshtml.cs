@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AppWeb.Pages.Proyectos
 {
     public class Proyect_listModel : PageModel
     {
         public List<ProyectoInfo> listaProyectos = new List<ProyectoInfo>();
-
         public void OnGet()
         {
 
@@ -18,7 +18,7 @@ namespace AppWeb.Pages.Proyectos
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    String sql = "SELECT * FROM Proyecto";
+                    string sql = "SELECT * FROM Proyecto";
                     using (SqlCommand command = new SqlCommand(sql, connection)) 
                     {
                         

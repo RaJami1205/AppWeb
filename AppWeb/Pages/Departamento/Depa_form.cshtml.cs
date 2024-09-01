@@ -9,20 +9,9 @@ namespace AppWeb.Pages.Departamento
         [BindProperty]
         public DepartamentoInfo Departamento { get; set; }
 
-        private string connectionString;
-
-        public Depa_formModel()
+        public void OnPost()
         {
-            connectionString = "Data Source=.\\mysqlserver;Initial Catalog=GestionProyectosTareas;Persist Security Info=True;User ID=sa;Password=***********;Trust Server Certificate=True";
-        }
-
-        public IActionResult OnPost()
-        {
-            if (!ModelState.IsValid)
-            {
-                // Si el modelo no es válido, retorna a la misma página.
-                return Page();
-            }
+            string connectionString = "Data source=" + Environment.MachineName + "; Initial Catalog=GestionProyectosTareas; Integrated Security=True";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -40,17 +29,7 @@ namespace AppWeb.Pages.Departamento
                     command.ExecuteNonQuery();
                 }
             }
-
-            // Redirige a otra página después de la inserción si es necesario.
-            return RedirectToPage("Success"); // Cambia "Success" por la página deseada.
         }
-    }
-
-    public class DepartamentoInfo
-    {
-        public int codigo { get; set; }
-        public string nombre { get; set; }
-        public int cedula_jefe { get; set; }
     }
 }
 
