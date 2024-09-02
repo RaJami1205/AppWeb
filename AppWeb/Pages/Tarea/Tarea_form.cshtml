@@ -8,13 +8,22 @@
         <h1>Tarea</h1>
 
         <form method="post" autocomplete="off">
-            <input class="controls" type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre de la Tarea" required>
+            <input class="controls" type="text" name="nombre_tarea" id="nombre_tarea" placeholder="Ingrese el nombre de la Tarea" required value="@Model.Tarea.nombre_proyecto">
 
-            <input class="controls" type="text" name="descripcion" id="descripcion" placeholder="Ingrese una descripción" required>
+            <input class="controls" type="text" name="tipo" id="tipo" placeholder="Ingrese el tipo de la Tarea" required value="@Model.Tarea.tipo">
 
-            <input class="controls" type="datetime" name="hora" id="hora" placeholder="Ingrese la cantidad de horas" required>
+            <input class="controls" type="text" name="descripcion" id="descripcion" placeholder="Ingrese la descripcion" required value="@Model.Tarea.descripcion">
 
-            <input class="controls" type="text" name="tipo" id="tipo" placeholder="Ingrese el tipo de tarea" required>
+            <input class="controls" type="text" name="cantidad_horas" id="cantidad_horas" placeholder="Ingrese la cantidad de horas" required value="@Model.Tarea.cantidad_horas">
+
+            <!-- Agregar el combobox para seleccionar el código de departamento -->
+            <select class="controls" name="nombre_proyecto" id="nombre_proyecto" required value="@Model.Tarea.nombre_proyecto">
+                <option value="">Seleccione un Proyecto</option>
+                @foreach (var codigo in Model.listaProyectos)
+                {
+                    <option value="@codigo">@codigo</option>
+                }
+            </select>
 
             <button type="submit" asp-page-handler="Registrar_tarea" class="buttoms">Registrar</button>
         </form>

@@ -8,8 +8,8 @@ namespace AppWeb.Pages.Departamento
     public class Depa_formModel : PageModel
     {
         [BindProperty]
-        public DepartamentoInfo Departamento { get; set; }
-        public List<string> listaCedulas { get; set; } = new List<string>();
+        public DepartamentoInfo Departamento { get; set; } = new DepartamentoInfo();
+        public List<string> listaCedulas = new List<string>();
         public string mensaje_error = "";
         public string mensaje_exito = "";
         public Conexion conexionBD = new Conexion();
@@ -57,9 +57,11 @@ namespace AppWeb.Pages.Departamento
             }
         }
 
-        public class Empleado
+        public class DepartamentoInfo
         {
-            public string cedula { get; set; }
+            public string codigo { get; set; }
+            public string nombre { get; set; }
+            public string cedula_jefe { get; set; }
         }
     }
 }
