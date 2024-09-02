@@ -14,7 +14,7 @@ namespace AppWeb.Pages.Proyectos
         public List<string> listaCodigosDep = new List<string>();
         public ProyectoInfo proyeForm = new ProyectoInfo();
         public string mensaje_error = "";
-        public string mensaje_exito = "El proyecto fue añadido exitosamente";
+        public string mensaje_exito = "";
 
         private string connectionString;
 

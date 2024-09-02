@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 
-namespace AppWeb.Pages.Actividad
+namespace AppWeb.Pages.Tarea
 {
     public class Actividad_listModel : PageModel
     {
