@@ -82,7 +82,7 @@ namespace AppWeb.Pages.Proyectos
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                string sqlDepartamentos = "SELECT codigo FROM Departamento";
+                string sqlDepartamentos = "SELECT codigoDep FROM Departamento";
                 using (SqlCommand command = new SqlCommand(sqlDepartamentos, connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
