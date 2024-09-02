@@ -18,25 +18,35 @@ namespace AppWeb.Pages.Departamento
             Departamento.nombre = Request.Form["nombre"];
             Departamento.cedula_jefe = Request.Form["cedula_jefe"];
             string connectionString = "Data source=" + Environment.MachineName + "; Initial Catalog=GestionProyectosTareas; Integrated Security=True";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                string query = @"
-                    INSERT INTO Departamento (codigo, nombre, cedula_jefe)
-                    VALUES (@codigo, @nombre, @cedula_jefe)";
 
-                using (SqlCommand command = new SqlCommand(query, connection))
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@codigo", Departamento.codigo);
-                    command.Parameters.AddWithValue("@nombre", Departamento.nombre);
-                    command.Parameters.AddWithValue("@cedula_jefe", Departamento.cedula_jefe);
+                    string query = @"
+                        INSERT INTO Departamento (codigo, nombre, cedula_jefe)
+                        VALUES (@codigo, @nombre, @cedula_jefe)";
 
-                    connection.Open();
-                    command.ExecuteNonQuery();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@codigo", Departamento.codigo);
+                        command.Parameters.AddWithValue("@nombre", Departamento.nombre);
+                        command.Parameters.AddWithValue("@cedula_jefe", Departamento.cedula_jefe);
+
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                    Departamento.codigo = "";
+                    Departamento.nombre = "";
+                    Departamento.cedula_jefe = "";
+                    mensaje_exito = "Departamento añadido exitosamente";
                 }
-                Departamento.codigo = "";
-                Departamento.nombre = "";
-                Departamento.cedula_jefe = "";
-                mensaje_exito = "Departamento añadido exitosamente";
+            }
+            catch (Exception ex)
+            {
+                mensaje_error=ex.Message;
+                OnGet();
             }
         }
         public void OnGet()
