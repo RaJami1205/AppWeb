@@ -8,7 +8,7 @@ namespace AppWeb.Pages.Departamento
     {
         [BindProperty]
         public DepartamentoInfo Departamento { get; set; }
-        public List<string> listaCedulas { get; set; } = new List<string>();
+        public List<string> listaCedulas = new List<string>();
         public string mensaje_error = "";
         public string mensaje_exito = "";
 
@@ -62,6 +62,7 @@ namespace AppWeb.Pages.Departamento
         public class Empleado
         {
             public string cedula { get; set; }
+            
         }
     }
 }
