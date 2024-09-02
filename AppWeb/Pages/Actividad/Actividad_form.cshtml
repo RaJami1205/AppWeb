@@ -8,7 +8,6 @@
         <h1>Actividad</h1>
 
         <form method="post" autocomplete="off">
-            <input class="controls" type="text" name="empleado" id="empleado" placeholder="Ingrese el empleado" required>
 
             <input class="controls" type="datetime" name="fechaHora_inicio" id="fechaHora_inicio" placeholder="Ingrese la fecha y hora de inicio" required>
 
@@ -19,6 +18,15 @@
             <input class="controls" type="text" name="tipo" id="tipo" placeholder="Ingrese el tipo de actividad" required>
 
             <input class="controls" type="text" name="etapa" id="etapa" value="Testing" readonly>
+
+            <!-- Agregar el combobox para seleccionar el código de departamento -->
+            <select class="controls" name="codigoDep" id="codigoDep" required value="@Model.proyeForm.codigoDep">
+                <option value="">Seleccione un Empleado</option>
+                @foreach (var codigo in Model.listaCodigosDep)
+                {
+                    <option value="@codigo">@codigo</option>
+                }
+            </select>
 
             <button type="submit" asp-page-handler="Registrar_actividad" class="buttoms">Registrar</button>
         </form>
