@@ -12,7 +12,7 @@ namespace AppWeb.Pages.Empleado
         public EmpleadoProyecto empleadoProyecto { get; set; } = new EmpleadoProyecto();
         public List<string> listaNombresProyectos { get; set; } = new List<string>();
         public string mensaje_error = "";
-        public string mensaje_exito = "El empleado fue añadido exitosamente";
+        public string mensaje_exito = "";
 
         private string connectionString;
 

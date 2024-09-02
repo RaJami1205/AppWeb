@@ -32,9 +32,9 @@
             <!-- Agregar el combobox para seleccionar la cédula del jefe del departamento -->
             <select class="controls" name="cedula_jefe" id="cedula_jefe" required value="@Model.Departamento.cedula_jefe">
                 <option value="">Seleccione una cédula</option>
-                @foreach (var cedula in Model.listaCedulas)
+                @foreach (var cedula_jefe in Model.listaCedulas)
                 {
-                    <option value="@cedula">@cedula</option>
+                    <option value="@cedula_jefe">@cedula_jefe</option>
                 }
             </select>
 
