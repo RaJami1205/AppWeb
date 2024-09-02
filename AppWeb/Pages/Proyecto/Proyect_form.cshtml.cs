@@ -12,6 +12,9 @@ namespace AppWeb.Pages.Proyectos
         [BindProperty]
         public ProyectoInfo Proyecto { get; set; }
         public List<string> listaCodigosDep = new List<string>();
+        public ProyectoInfo proyeForm=new ProyectoInfo();
+        public string mensaje_error="";
+        public string mensaje_exito = "El proyecto fue añadido exitosamente";
 
         private string connectionString;
 
@@ -22,41 +25,61 @@ namespace AppWeb.Pages.Proyectos
 
         public void OnPost()
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            proyeForm.nombre_proyecto = Request.Form["nombre_proyecto"];
+            proyeForm.nombre_portafolio = Request.Form["nombre_portafolio"];
+            proyeForm.descripcion = Request.Form["descripcion"];
+            proyeForm.tipo = Request.Form["año"];
+            proyeForm.trimestre = Request.Form["trimestre"];
+            proyeForm.fecha_inicio = Request.Form["fecha_inicio"];
+            proyeForm.fecha_cierre = Request.Form["fecha_cierre"];
+            proyeForm.codigoDep = Request.Form["codigoDep"];
+
+            if (proyeForm.nombre_proyecto.Length == 0 || proyeForm.nombre_portafolio.Length == 0 || proyeForm.descripcion.Length == 0 || proyeForm.año.Length == 0 || proyeForm.trimestre.Length == 0 || proyeForm.fecha_inicio.Length == 0 || proyeForm.fecha_cierre.Length == 0)
             {
-                string query = @"
-                    INSERT INTO Proyecto (nombre_proyecto, nombre_portafolio, descripcion, tipo, año, trimestre, fecha_inicio, fecha_cierre, codigoDep)
-                    VALUES (@nombre_proyecto, @nombre_portafolio, @descripcion, @tipo, @año, @trimestre, @fecha_inicio, @fecha_cierre, @codigoDep)";
+                mensaje_error = "Todos los campos son requeridos";
+                return;
+            }
 
-                using (SqlCommand command = new SqlCommand(query, connection))
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@nombre_proyecto", Proyecto.nombre_proyecto);
-                    command.Parameters.AddWithValue("@nombre_portafolio", Proyecto.nombre_portafolio);
-                    command.Parameters.AddWithValue("@descripcion", Proyecto.descripcion);
-                    command.Parameters.AddWithValue("@tipo", Proyecto.tipo);
-                    command.Parameters.AddWithValue("@año", Proyecto.año);
-                    command.Parameters.AddWithValue("@trimestre", Proyecto.trimestre);
-                    command.Parameters.AddWithValue("@fecha_inicio", Proyecto.fecha_inicio);
-                    command.Parameters.AddWithValue("@fecha_cierre", Proyecto.fecha_cierre);
-                    command.Parameters.AddWithValue("@codigoDep", Proyecto.codigoDep);
+                    string query = @"
+                        INSERT INTO Proyecto (nombre_proyecto, nombre_portafolio, descripcion, tipo, año, trimestre, fecha_inicio, fecha_cierre, codigoDep)
+                        VALUES (@nombre_proyecto, @nombre_portafolio, @descripcion, @tipo, @año, @trimestre, @fecha_inicio, @fecha_cierre, @codigoDep)";
 
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
-                string sqlDepartamentos = "SELECT * FROM Departamento";
-                using (SqlCommand command = new SqlCommand(sqlDepartamentos, connection))
-                {
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        while (reader.Read())
-                        {
-                            DepartamentoInfo departamento = new DepartamentoInfo();
-                            listaCodigosDep.Add(reader.GetString(0));
-                        }
+                        command.Parameters.AddWithValue("@nombre_proyecto", Proyecto.nombre_proyecto);
+                        command.Parameters.AddWithValue("@nombre_portafolio", Proyecto.nombre_portafolio);
+                        command.Parameters.AddWithValue("@descripcion", Proyecto.descripcion);
+                        command.Parameters.AddWithValue("@tipo", Proyecto.tipo);
+                        command.Parameters.AddWithValue("@año", Proyecto.año);
+                        command.Parameters.AddWithValue("@trimestre", Proyecto.trimestre);
+                        command.Parameters.AddWithValue("@fecha_inicio", Proyecto.fecha_inicio);
+                        command.Parameters.AddWithValue("@fecha_cierre", Proyecto.fecha_cierre);
+                        command.Parameters.AddWithValue("@codigoDep", Proyecto.codigoDep);
+
+                        connection.Open();
+                        command.ExecuteNonQuery();
                     }
+                    proyeForm.nombre_proyecto = "";
+                    proyeForm.nombre_portafolio = "";
+                    proyeForm.descripcion = "";
+                    proyeForm.tipo = "";
+                    proyeForm.año = "";
+                    proyeForm.trimestre = "";
+                    proyeForm.fecha_inicio = "";
+                    proyeForm.fecha_cierre = "";
+                    proyeForm.codigoDep = "";
+                    mensaje_exito = "Proyecto añadido exitosamente";
                 }
             }
-        }
+            catch (Exception ex)
+            {
+                mensaje_error=ex.Message;
+                return;
+            }
     }
     public class DepartamentoInfo
     {

@@ -5,24 +5,30 @@
 
 <body>
     <section class="form-register">
-        <h1>Proyecto</h1>
+        <h1>Nuevo Proyecto</h1>
+        @if (Model.mensaje_error.Length > 0)
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>@Model.mensaje_error</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        <form method="POST" autocomplete="off">
+            <input class="controls" type="text" name="nombre_portafolio" id="nombre_proyecto" placeholder="Ingrese el nombre proyecto" required value="@Model.proyeForm.nombre_proyecto">
 
-        <form method="post" autocomplete="off">
-            <input class="controls" type="text" name="nombre_portafolio" id="nombre_portafolio" placeholder="Ingrese el nombre portafolio" required>
+            <input class="controls" type="text" name="nombre" id="nombre_portafolio" placeholder="Ingrese el nombre del portafolio" required value="@Model.proyeForm.nombre_portafolio">
 
-            <input class="controls" type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre del proyecto" required>
+            <input class="controls" type="text" name="año" id="año" placeholder="Ingrese el año" required value="@Model.proyeForm.año">
 
-            <input class="controls" type="text" name="año" id="año" placeholder="Ingrese el año" required>
+            <input class="controls" type="text" name="trimestre" id="trimestre" placeholder="Ingrese el trimestre" required value="@Model.proyeForm.trimestre">
 
-            <input class="controls" type="text" name="trimestre" id="trimestre" placeholder="Ingrese el trimestre" required>
+            <input class="controls" type="text" name="descripcion" id="descripcion" placeholder="Ingrese una descripción" required value="@Model.proyeForm.descripcion">
 
-            <input class="controls" type="text" name="descripcion" id="descripcion" placeholder="Ingrese una descripción" required>
+            <input class="controls" type="text" name="tipo" id="tipo" placeholder="Ingrese el tipo de proyecto" required value="@Model.proyeForm.tipo">
 
-            <input class="controls" type="text" name="tipo" id="tipo" placeholder="Ingrese el tipo de proyecto" required>
+            <input class="controls" type="date" name="fecha_inicio" id="fecha_inicio" required value="@Model.proyeForm.fecha_inicio">
 
-            <input class="controls" type="date" name="fecha_inicio" id="fecha_inicio" required>
-
-            <input class="controls" type="date" name="fecha_cierre" id="fecha_cierre" required>
+            <input class="controls" type="date" name="fecha_cierre" id="fecha_cierre" required value="@Model.proyeForm.fecha_cierre">
 
             <!-- Agregar el combobox para seleccionar el código de departamento -->
             <select class="controls" name="Departamento.codigoDep" id="codigoDep" required>
