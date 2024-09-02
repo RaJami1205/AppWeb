@@ -17,7 +17,7 @@ namespace AppWeb.Pages.Empleado
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string sql = "SELECT * FROM Empleado";
+                    string sql = "SELECT cedula, nombre, apellido1, apellido2, telefono FROM Empleado";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())

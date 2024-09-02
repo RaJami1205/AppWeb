@@ -18,7 +18,7 @@ namespace AppWeb.Pages.Proyectos
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string sql = "SELECT * FROM Proyecto";
+                    string sql = "SELECT nombre_proyecto, nombre_portafolio, descripcion, tipo, año, trimestre, fecha_inicio, fecha_cierre, codigoDep FROM Proyecto";
                     using (SqlCommand command = new SqlCommand(sql, connection)) 
                     {
                         

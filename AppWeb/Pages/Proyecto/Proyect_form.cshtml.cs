@@ -1,3 +1,4 @@
+using AppWeb.Pages.Departamento;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
@@ -10,12 +11,13 @@ namespace AppWeb.Pages.Proyectos
     {
         [BindProperty]
         public ProyectoInfo Proyecto { get; set; }
+        public List<string> listaCodigosDep = new List<string>();
 
         private string connectionString;
 
         public Proyect_formModel()
         {
-            connectionString = "Data Source=.\\mysqlserver;Initial Catalog=GestionProyectosTareas;Persist Security Info=True;User ID=sa;Password=***********;Encrypt=True;Trust Server Certificate=True";
+            connectionString = "Data source=" + Environment.MachineName + "; Initial Catalog=GestionProyectosTareas; Integrated Security=True";
         }
 
         public void OnPost()
@@ -41,7 +43,25 @@ namespace AppWeb.Pages.Proyectos
                     connection.Open();
                     command.ExecuteNonQuery();
                 }
+                string sqlDepartamentos = "SELECT * FROM Departamento";
+                using (SqlCommand command = new SqlCommand(sqlDepartamentos, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            DepartamentoInfo departamento = new DepartamentoInfo();
+                            listaCodigosDep.Add(reader.GetString(0));
+                        }
+                    }
+                }
             }
         }
+    }
+    public class DepartamentoInfo
+    {
+        public string codigo { get; set; }
+        public string nombre { get; set; }
+        public string cedula_jefe { get; set; }
     }
 }

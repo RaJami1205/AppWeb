@@ -18,7 +18,7 @@ namespace AppWeb.Pages.Departamento
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    String sql = "SELECT * FROM Departamento";
+                    String sql = "SELECT codigo, nombre, cedula_jefe FROM Departamento";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())

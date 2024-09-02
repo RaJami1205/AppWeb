@@ -18,7 +18,7 @@ namespace AppWeb.Pages.Actividad
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    String sql = "SELECT * FROM Actividad";
+                    String sql = "SELECT fecha_hora_inicio, fecha_hora_final, horas, tipo, etapa, nombre_tarea, cedula_empleado FROM Actividad";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
 

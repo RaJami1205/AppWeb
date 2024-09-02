@@ -24,6 +24,15 @@
 
             <input class="controls" type="date" name="fecha_cierre" id="fecha_cierre" required>
 
+            <!-- Agregar el combobox para seleccionar el código de departamento -->
+            <select class="controls" name="Departamento.codigoDep" id="codigoDep" required>
+                <option value="">Seleccione un departamento</option>
+                @foreach (var codigo in Model.listaCodigosDep)
+                {
+                    <option value="@codigo">@codigo</option>
+                }
+            </select>
+
             <button type="submit" asp-page-handler="Registrar_proye" class="buttoms">Registrar</button>
         </form>
     </section>
