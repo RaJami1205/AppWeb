@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using AppWeb.Pages;
+using Gestor_de_inventario_Super_Los_Patitos;
 
 namespace AppWeb.Pages.Proyectos
 {
@@ -11,38 +12,33 @@ namespace AppWeb.Pages.Proyectos
 
         public List<ProyectoInfo> listaProyectos = new List<ProyectoInfo>();
         public List<string> listaCodigosDep = new List<string>();
+        public Conexion conexionBD = new Conexion();
         public void OnGet()
         {
             string connectionString = "Data source=" + Environment.MachineName + "; Initial Catalog=GestionProyectosTareas; Integrated Security=True";
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                conexionBD.abrir();
+                string sql = "SELECT nombre_proyecto, nombre_portafolio, descripcion, tipo, año, trimestre, fecha_inicio, fecha_cierre, codigoDep FROM Proyecto";
+                SqlCommand command= conexionBD.obtenerComando(sql);
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    connection.Open();
-                    string sql = "SELECT nombre_proyecto, nombre_portafolio, descripcion, tipo, año, trimestre, fecha_inicio, fecha_cierre, codigoDep FROM Proyecto";
-                    using (SqlCommand command = new SqlCommand(sql, connection)) 
+                    while (reader.Read())
                     {
-                        
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
                              
-                                ProyectoInfo Proyectoinfo = new ProyectoInfo();
-                                Proyectoinfo.nombre_proyecto = reader.GetString(0);
-                                Proyectoinfo.nombre_portafolio = reader.GetString(1);
-                                Proyectoinfo.descripcion = reader.GetString(2);
-                                Proyectoinfo.tipo = reader.GetString(3);
-                                Proyectoinfo.año = "" + reader.GetInt32(4);
-                                Proyectoinfo.trimestre = "" + reader.GetInt32(5);
-                                Proyectoinfo.fecha_inicio = "" + reader.GetDateTime(6).ToString();
-                                Proyectoinfo.fecha_cierre = "" + reader.GetDateTime(7).ToString();
-                                Proyectoinfo.codigoDep = "" + reader.GetInt32(8);
+                        ProyectoInfo Proyectoinfo = new ProyectoInfo();
+                        Proyectoinfo.nombre_proyecto = reader.GetString(0);
+                        Proyectoinfo.nombre_portafolio = reader.GetString(1);
+                        Proyectoinfo.descripcion = reader.GetString(2);
+                        Proyectoinfo.tipo = reader.GetString(3);
+                        Proyectoinfo.año = "" + reader.GetInt32(4);
+                        Proyectoinfo.trimestre = "" + reader.GetInt32(5);
+                        Proyectoinfo.fecha_inicio = "" + reader.GetDateTime(6).ToString();
+                        Proyectoinfo.fecha_cierre = "" + reader.GetDateTime(7).ToString();
+                        Proyectoinfo.codigoDep = "" + reader.GetInt32(8);
 
-                                listaProyectos.Add(Proyectoinfo);
-                            }
-                        }
+                        listaProyectos.Add(Proyectoinfo);
                     }
                 }
             }

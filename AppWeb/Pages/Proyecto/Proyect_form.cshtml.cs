@@ -1,4 +1,5 @@
 using AppWeb.Pages.Departamento;
+using Gestor_de_inventario_Super_Los_Patitos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
@@ -15,13 +16,7 @@ namespace AppWeb.Pages.Proyectos
         public ProyectoInfo proyeForm = new ProyectoInfo();
         public string mensaje_error = "";
         public string mensaje_exito = "El proyecto fue añadido exitosamente";
-
-        private string connectionString;
-
-        public Proyect_formModel()
-        {
-            connectionString = "Data source=" + Environment.MachineName + "; Initial Catalog=GestionProyectosTareas; Integrated Security=True";
-        }
+        public Conexion conexionBD= new Conexion();
 
         public void OnPost()
         {
@@ -37,38 +32,35 @@ namespace AppWeb.Pages.Proyectos
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    string query = @"
-                        INSERT INTO Proyecto (nombre_proyecto, nombre_portafolio, descripcion, tipo, año, trimestre, fecha_inicio, fecha_cierre, codigoDep)
-                        VALUES (@nombre_proyecto, @nombre_portafolio, @descripcion, @tipo, @año, @trimestre, @fecha_inicio, @fecha_cierre, @codigoDep)";
+                string query = @"
+                    INSERT INTO Proyecto (nombre_proyecto, nombre_portafolio, descripcion, tipo, año, trimestre, fecha_inicio, fecha_cierre, codigoDep)
+                    VALUES (@nombre_proyecto, @nombre_portafolio, @descripcion, @tipo, @año, @trimestre, @fecha_inicio, @fecha_cierre, @codigoDep)";
 
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@nombre_proyecto", proyeForm.nombre_proyecto);
-                        command.Parameters.AddWithValue("@nombre_portafolio", proyeForm.nombre_portafolio);
-                        command.Parameters.AddWithValue("@descripcion", proyeForm.descripcion);
-                        command.Parameters.AddWithValue("@tipo", proyeForm.tipo);
-                        command.Parameters.AddWithValue("@año", proyeForm.año);
-                        command.Parameters.AddWithValue("@trimestre", proyeForm.trimestre);
-                        command.Parameters.AddWithValue("@fecha_inicio", proyeForm.fecha_inicio);
-                        command.Parameters.AddWithValue("@fecha_cierre", proyeForm.fecha_cierre);
-                        command.Parameters.AddWithValue("@codigoDep", proyeForm.codigoDep);
+                SqlCommand command=conexionBD.obtenerComando(query);
 
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-                    proyeForm.nombre_proyecto = "";
-                    proyeForm.nombre_portafolio = "";
-                    proyeForm.descripcion = "";
-                    proyeForm.tipo = "";
-                    proyeForm.año = "";
-                    proyeForm.trimestre = "";
-                    proyeForm.fecha_inicio = "";
-                    proyeForm.fecha_cierre = "";
-                    proyeForm.codigoDep = "";
-                    mensaje_exito = "Proyecto añadido exitosamente";
-                }
+                command.Parameters.AddWithValue("@nombre_proyecto", proyeForm.nombre_proyecto);
+                command.Parameters.AddWithValue("@nombre_portafolio", proyeForm.nombre_portafolio);
+                command.Parameters.AddWithValue("@descripcion", proyeForm.descripcion);
+                command.Parameters.AddWithValue("@tipo", proyeForm.tipo);
+                command.Parameters.AddWithValue("@año", proyeForm.año);
+                command.Parameters.AddWithValue("@trimestre", proyeForm.trimestre);
+                command.Parameters.AddWithValue("@fecha_inicio", proyeForm.fecha_inicio);
+                command.Parameters.AddWithValue("@fecha_cierre", proyeForm.fecha_cierre);
+                command.Parameters.AddWithValue("@codigoDep", proyeForm.codigoDep);
+
+                conexionBD.abrir();
+                command.ExecuteNonQuery();
+            
+                proyeForm.nombre_proyecto = "";
+                proyeForm.nombre_portafolio = "";
+                proyeForm.descripcion = "";
+                proyeForm.tipo = "";
+                proyeForm.año = "";
+                proyeForm.trimestre = "";
+                proyeForm.fecha_inicio = "";
+                proyeForm.fecha_cierre = "";
+                proyeForm.codigoDep = "";
+                mensaje_exito = "Proyecto añadido exitosamente";
             }
             catch (Exception ex)
             {
@@ -79,20 +71,15 @@ namespace AppWeb.Pages.Proyectos
 
         public void OnGet()
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            conexionBD.abrir();
+            string sqlDepartamentos = "SELECT codigoDep FROM Departamento";
+            SqlCommand command= conexionBD.obtenerComando(sqlDepartamentos);
+            using (SqlDataReader reader = command.ExecuteReader())
             {
-                connection.Open();
-                string sqlDepartamentos = "SELECT codigoDep FROM Departamento";
-                using (SqlCommand command = new SqlCommand(sqlDepartamentos, connection))
+                while (reader.Read())
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            DepartamentoInfo departamento = new DepartamentoInfo();
-                            listaCodigosDep.Add("" + reader.GetInt32(0));
-                        }
-                    }
+                    DepartamentoInfo departamento = new DepartamentoInfo();
+                    listaCodigosDep.Add("" + reader.GetInt32(0));
                 }
             }
         }

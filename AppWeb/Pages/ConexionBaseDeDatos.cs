@@ -38,5 +38,11 @@ namespace Gestor_de_inventario_Super_Los_Patitos
         {
             ConectarBD.Close();
         }
+
+        public SqlCommand obtenerComando(string sql)
+        {
+            SqlCommand command = new SqlCommand(sql, ConectarBD);
+            return command;
+        }
     }
 }

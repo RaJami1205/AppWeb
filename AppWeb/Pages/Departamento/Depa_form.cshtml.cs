@@ -1,3 +1,4 @@
+using Gestor_de_inventario_Super_Los_Patitos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
@@ -11,60 +12,47 @@ namespace AppWeb.Pages.Departamento
         public List<string> listaCedulas { get; set; } = new List<string>();
         public string mensaje_error = "";
         public string mensaje_exito = "";
+        public Conexion conexionBD = new Conexion();
 
         public void OnPost()
         {
             Departamento.codigo = Request.Form["codigo"];
             Departamento.nombre = Request.Form["nombre"];
             Departamento.cedula_jefe = Request.Form["cedula_jefe"];
-            string connectionString = "Data source=" + Environment.MachineName + "; Initial Catalog=GestionProyectosTareas; Integrated Security=True";
             try
             {
+                string query = @"
+                    INSERT INTO Departamento (codigo, nombre, cedula_jefe)
+                    VALUES (@codigo, @nombre, @cedula_jefe)";
+                SqlCommand command = conexionBD.obtenerComando(query);
+                command.Parameters.AddWithValue("@codigo", Departamento.codigo);
+                command.Parameters.AddWithValue("@nombre", Departamento.nombre);
+                command.Parameters.AddWithValue("@cedula_jefe", Departamento.cedula_jefe);
 
+                conexionBD.abrir();
+                command.ExecuteNonQuery();
 
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    string query = @"
-                        INSERT INTO Departamento (codigo, nombre, cedula_jefe)
-                        VALUES (@codigo, @nombre, @cedula_jefe)";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@codigo", Departamento.codigo);
-                        command.Parameters.AddWithValue("@nombre", Departamento.nombre);
-                        command.Parameters.AddWithValue("@cedula_jefe", Departamento.cedula_jefe);
-
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-                    Departamento.codigo = "";
-                    Departamento.nombre = "";
-                    Departamento.cedula_jefe = "";
-                    mensaje_exito = "Departamento añadido exitosamente";
-                }
+                Departamento.codigo = "";
+                Departamento.nombre = "";
+                Departamento.cedula_jefe = "";
+                mensaje_exito = "Departamento añadido exitosamente";
             }
             catch (Exception ex)
             {
-                mensaje_error=ex.Message;
+                mensaje_error = ex.Message;
                 OnGet();
             }
         }
         public void OnGet()
         {
-            string connectionString = "Data source=" + Environment.MachineName + "; Initial Catalog=GestionProyectosTareas; Integrated Security=True";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            conexionBD.abrir();
+            string sqlProyectos = "SELECT cedula FROM Empleado";
+            SqlCommand command = conexionBD.obtenerComando(sqlProyectos);
+            using (SqlDataReader reader = command.ExecuteReader())
             {
-                connection.Open();
-                string sqlProyectos = "SELECT cedula FROM Empleado";
-                using (SqlCommand command = new SqlCommand(sqlProyectos, connection))
+                while (reader.Read())
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            listaCedulas.Add(""+reader.GetInt32(0));
-                        }
-                    }
+                    listaCedulas.Add(""+reader.GetInt32(0));
                 }
             }
         }

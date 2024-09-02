@@ -1,4 +1,5 @@
 using AppWeb.Pages.Proyectos;
+using Gestor_de_inventario_Super_Los_Patitos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
@@ -8,37 +9,30 @@ namespace AppWeb.Pages.Actividad
     public class Actividad_listModel : PageModel
     {
         public List<ActividadInfo> listaActividades = new List<ActividadInfo>();
+        public Conexion conexionBD = new Conexion();
 
         public void OnGet()
         {
-            string connectionString = "Data source=" + Environment.MachineName + "; Initial Catalog=GestionProyectosTareas; Integrated Security=True";
-
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                conexionBD.abrir();
+                String sql = "SELECT fecha_hora_inicio, fecha_hora_final, horas, tipo, etapa, nombre_tarea, cedula_empleado FROM Actividad";
+                SqlCommand command = conexionBD.obtenerComando(sql);
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    connection.Open();
-                    String sql = "SELECT fecha_hora_inicio, fecha_hora_final, horas, tipo, etapa, nombre_tarea, cedula_empleado FROM Actividad";
-                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    while (reader.Read())
                     {
 
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
+                        ActividadInfo actividad = new ActividadInfo();
+                        actividad.fecha_hora_inicio = "" + reader.GetDateTime(0).ToString();
+                        actividad.fecha_hora_final = "" + reader.GetDateTime(1).ToString();
+                        actividad.horas = "" + reader.GetInt32(2);
+                        actividad.tipo = reader.GetString(3);
+                        actividad.etapa = reader.GetString(4);
+                        actividad.nombre_tarea = reader.GetString(5);
+                        actividad.cedulaEmpleado = ""+reader.GetInt32(6);
 
-                                ActividadInfo actividad = new ActividadInfo();
-                                actividad.fecha_hora_inicio = "" + reader.GetDateTime(0).ToString();
-                                actividad.fecha_hora_final = "" + reader.GetDateTime(1).ToString();
-                                actividad.horas = "" + reader.GetInt32(2);
-                                actividad.tipo = reader.GetString(3);
-                                actividad.etapa = reader.GetString(4);
-                                actividad.nombre_tarea = reader.GetString(5);
-                                actividad.cedulaEmpleado = ""+reader.GetInt32(6);
-
-                                listaActividades.Add(actividad);
-                            }
-                        }
+                        listaActividades.Add(actividad);
                     }
                 }
             }

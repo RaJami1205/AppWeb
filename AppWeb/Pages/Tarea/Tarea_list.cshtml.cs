@@ -1,4 +1,5 @@
 using AppWeb.Pages.Proyectos;
+using Gestor_de_inventario_Super_Los_Patitos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
@@ -8,34 +9,27 @@ namespace AppWeb.Pages.Tarea
     public class Tarea_listModel : PageModel
     {
         public List<TareaInfo> listaTareas = new List<TareaInfo>();
+        public Conexion conexionBD = new Conexion();
         public void OnGet()
         {
-            string connectionString = "Data source=" + Environment.MachineName + "; Initial Catalog=GestionProyectosTareas; Integrated Security=True";
-
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                conexionBD.abrir();
+                string sql = "SELECT * FROM Tarea";
+                SqlCommand command = conexionBD.obtenerComando(sql);
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    connection.Open();
-                    string sql = "SELECT * FROM Tarea";
-                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    while (reader.Read())
                     {
 
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
+                        TareaInfo Tarea = new TareaInfo();
+                        Tarea.nombre_tarea = reader.GetString(0);
+                        Tarea.tipo = reader.GetString(1);
+                        Tarea.descripcion = reader.GetString(2);
+                        Tarea.cantidad_horas = "" + reader.GetInt32(3);
+                        Tarea.nombre_proyecto = reader.GetString(4);
 
-                                TareaInfo Tarea = new TareaInfo();
-                                Tarea.nombre_tarea = reader.GetString(0);
-                                Tarea.tipo = reader.GetString(1);
-                                Tarea.descripcion = reader.GetString(2);
-                                Tarea.cantidad_horas = "" + reader.GetInt32(3);
-                                Tarea.nombre_proyecto = reader.GetString(4);
-
-                                listaTareas.Add(Tarea);
-                            }
-                        }
+                        listaTareas.Add(Tarea);
                     }
                 }
             }

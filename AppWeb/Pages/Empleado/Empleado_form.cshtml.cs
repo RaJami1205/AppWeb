@@ -1,3 +1,4 @@
+using Gestor_de_inventario_Super_Los_Patitos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
@@ -13,13 +14,7 @@ namespace AppWeb.Pages.Empleado
         public List<string> listaNombresProyectos { get; set; } = new List<string>();
         public string mensaje_error = "";
         public string mensaje_exito = "El empleado fue añadido exitosamente";
-
-        private string connectionString;
-
-        public Empleado_formModel()
-        {
-            connectionString = "Data source=" + Environment.MachineName + "; Initial Catalog=GestionProyectosTareas; Integrated Security=True";
-        }
+        public Conexion conexionBD = new Conexion();
 
         public void OnPost()
         {
@@ -33,47 +28,40 @@ namespace AppWeb.Pages.Empleado
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    // Insertar en la tabla Empleado
-                    string query1 = @"
-                        INSERT INTO Empleado (cedula, nombre, apellido1, apellido2, telefono)
-                        VALUES (@cedula, @nombre, @apellido1, @apellido2, @telefono)";
+                // Insertar en la tabla Empleado
+                string query1 = @"
+                    INSERT INTO Empleado (cedula, nombre, apellido1, apellido2, telefono)
+                    VALUES (@cedula, @nombre, @apellido1, @apellido2, @telefono)";
 
-                    using (SqlCommand command1 = new SqlCommand(query1, connection))
-                    {
-                        command1.Parameters.AddWithValue("@cedula", Empleado.cedula);
-                        command1.Parameters.AddWithValue("@nombre", Empleado.nombre);
-                        command1.Parameters.AddWithValue("@apellido1", Empleado.apellido1);
-                        command1.Parameters.AddWithValue("@apellido2", Empleado.apellido2);
-                        command1.Parameters.AddWithValue("@telefono", Empleado.telefono);
+                SqlCommand command1= conexionBD.obtenerComando(query1);
+                command1.Parameters.AddWithValue("@cedula", Empleado.cedula);
+                command1.Parameters.AddWithValue("@nombre", Empleado.nombre);
+                command1.Parameters.AddWithValue("@apellido1", Empleado.apellido1);
+                command1.Parameters.AddWithValue("@apellido2", Empleado.apellido2);
+                command1.Parameters.AddWithValue("@telefono", Empleado.telefono);
 
-                        connection.Open();
-                        command1.ExecuteNonQuery();
-                    }
+                conexionBD.abrir();
+                command1.ExecuteNonQuery();
 
-                    // Insertar en la tabla EmpleadoProyecto
-                    string query2 = @"
-                        INSERT INTO EmpleadoProyecto (cedula_empleado, nombre_proyecto)
-                        VALUES (@cedula_empleado, @nombre_proyecto)";
+                // Insertar en la tabla EmpleadoProyecto
+                string query2 = @"
+                    INSERT INTO EmpleadoProyecto (cedula_empleado, nombre_proyecto)
+                    VALUES (@cedula_empleado, @nombre_proyecto)";
+                SqlCommand command2 = conexionBD.obtenerComando(query2);
+                command2.Parameters.AddWithValue("@cedula_empleado", Empleado.cedula);
+                command2.Parameters.AddWithValue("@nombre_proyecto", empleadoProyecto.nombre_proyecto);
 
-                    using (SqlCommand command2 = new SqlCommand(query2, connection))
-                    {
-                        command2.Parameters.AddWithValue("@cedula_empleado", Empleado.cedula);
-                        command2.Parameters.AddWithValue("@nombre_proyecto", empleadoProyecto.nombre_proyecto);
+                command2.ExecuteNonQuery();
 
-                        command2.ExecuteNonQuery();
-                    }
-
-                    // Resetear los datos del formulario
-                    Empleado.cedula = "";
-                    Empleado.nombre = "";
-                    Empleado.apellido1 = "";
-                    Empleado.apellido2 = "";
-                    Empleado.telefono = "";
-                    empleadoProyecto.nombre_proyecto = "";
-                    mensaje_exito = "Empleado añadido exitosamente";
-                }
+                // Resetear los datos del formulario
+                Empleado.cedula = "";
+                Empleado.nombre = "";
+                Empleado.apellido1 = "";
+                Empleado.apellido2 = "";
+                Empleado.telefono = "";
+                empleadoProyecto.nombre_proyecto = "";
+                mensaje_exito = "Empleado añadido exitosamente";
+                
             }
             catch (Exception ex)
             {
@@ -84,19 +72,14 @@ namespace AppWeb.Pages.Empleado
 
         public void OnGet()
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            conexionBD.abrir();
+            string sqlProyectos = "SELECT nombre_proyecto FROM Proyecto";
+            SqlCommand command = conexionBD.obtenerComando(sqlProyectos);
+            using (SqlDataReader reader = command.ExecuteReader())
             {
-                connection.Open();
-                string sqlProyectos = "SELECT nombre_proyecto FROM Proyecto";
-                using (SqlCommand command = new SqlCommand(sqlProyectos, connection))
+                while (reader.Read())
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            listaNombresProyectos.Add(reader.GetString(0));
-                        }
-                    }
+                    listaNombresProyectos.Add(reader.GetString(0));
                 }
             }
         }

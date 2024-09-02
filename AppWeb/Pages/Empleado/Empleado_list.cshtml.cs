@@ -1,3 +1,4 @@
+using Gestor_de_inventario_Super_Los_Patitos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
@@ -7,33 +8,27 @@ namespace AppWeb.Pages.Empleado
     public class Empleado_listModel : PageModel
     {
         public List<EmpleadoInfo> listaEmpleados = new List<EmpleadoInfo>();
+        public Conexion conexionBD = new Conexion();
 
         public void OnGet()
         {
-            string connectionString = "Data source=" + Environment.MachineName + "; Initial Catalog=GestionProyectosTareas; Integrated Security=True";
-
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                conexionBD.abrir();
+                string sql = "SELECT cedula, nombre, apellido1, apellido2, telefono FROM Empleado";
+                SqlCommand command = conexionBD.obtenerComando(sql);
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    connection.Open();
-                    string sql = "SELECT cedula, nombre, apellido1, apellido2, telefono FROM Empleado";
-                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    while (reader.Read())
                     {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                EmpleadoInfo empleado = new EmpleadoInfo();
-                                empleado.cedula = "" + reader.GetInt32(0);
-                                empleado.nombre = reader.GetString(1);
-                                empleado.apellido1 = reader.GetString(2);
-                                empleado.apellido2 = reader.GetString(3);
-                                empleado.telefono = "" + reader.GetInt32(4);
+                        EmpleadoInfo empleado = new EmpleadoInfo();
+                        empleado.cedula = "" + reader.GetInt32(0);
+                        empleado.nombre = reader.GetString(1);
+                        empleado.apellido1 = reader.GetString(2);
+                        empleado.apellido2 = reader.GetString(3);
+                        empleado.telefono = "" + reader.GetInt32(4);
 
-                                listaEmpleados.Add(empleado);
-                            }
-                        }
+                        listaEmpleados.Add(empleado);
                     }
                 }
             }
