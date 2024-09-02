@@ -53,5 +53,14 @@ namespace AppWeb.Pages.Empleado
         public string apellido2 { get; set; }
         public string telefono { get; set; }
     }
+
+    /*Los empleados pueden estar en muchos proyectos pero en este caso se eligio que pusieramos persona
+      por proyecto, que es como tener una foreign key de proyecto en empleado solo que el empleado puede
+      ser parte de varios proyectos como lo indica en el documento*/
+    public class EmpleadoProyecto
+    {
+        public string cedula_empleado { get; set; }
+        public string nombre_proyecto { get; set; }
+    }
 }
 

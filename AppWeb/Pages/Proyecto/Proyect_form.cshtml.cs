@@ -82,7 +82,7 @@ namespace AppWeb.Pages.Proyectos
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                string sqlDepartamentos = "SELECT * FROM Departamento";
+                string sqlDepartamentos = "SELECT codigoDep FROM Departamento";
                 using (SqlCommand command = new SqlCommand(sqlDepartamentos, connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -100,8 +100,6 @@ namespace AppWeb.Pages.Proyectos
         public class DepartamentoInfo
         {
             public string codigo { get; set; }
-            public string nombre { get; set; }
-            public string cedula_jefe { get; set; }
         }
     }
 }
