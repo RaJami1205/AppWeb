@@ -14,6 +14,7 @@ namespace AppWeb.Pages.Tarea
         public List<string> listaTareas = new List<string>();
         public string mensaje_error = "";
         public string mensaje_exito = "La actividad fue registrada exitosamente";
+        public Conexion conexionBD = new Conexion();
 
         public void OnPost()
         {
@@ -44,10 +45,10 @@ namespace AppWeb.Pages.Tarea
 
 
                 // Limpieza del formulario
-                Actividad.empleado = "";
-                Actividad.fechaHora_inicio = "";
-                Actividad.fechaHora_final = "";
-                Actividad.hora = "";
+                Actividad.cedula_empleado = "";
+                Actividad.fecha_hora_inicio = "";
+                Actividad.fecha_hora_final = "";
+                Actividad.horas = "";
                 Actividad.tipo = "";
                 Actividad.etapa = "Testing";  // Valor por defecto
 
