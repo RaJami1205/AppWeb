@@ -14,9 +14,9 @@
             </div>
         }
         <form method="POST" autocomplete="off">
-            <input class="controls" type="text" name="nombre_portafolio" id="nombre_proyecto" placeholder="Ingrese el nombre proyecto" required value="@Model.proyeForm.nombre_proyecto">
+            <input class="controls" type="text" name="nombre_proyecto" id="nombre_proyecto" placeholder="Ingrese el nombre proyecto" required value="@Model.proyeForm.nombre_proyecto">
 
-            <input class="controls" type="text" name="nombre" id="nombre_portafolio" placeholder="Ingrese el nombre del portafolio" required value="@Model.proyeForm.nombre_portafolio">
+            <input class="controls" type="text" name="nombre_portafolio" id="nombre_portafolio" placeholder="Ingrese el nombre del portafolio" required value="@Model.proyeForm.nombre_portafolio">
 
             <input class="controls" type="text" name="año" id="año" placeholder="Ingrese el año" required value="@Model.proyeForm.año">
 
@@ -31,7 +31,7 @@
             <input class="controls" type="date" name="fecha_cierre" id="fecha_cierre" required value="@Model.proyeForm.fecha_cierre">
 
             <!-- Agregar el combobox para seleccionar el código de departamento -->
-            <select class="controls" name="Departamento.codigoDep" id="codigoDep" required>
+            <select class="controls" name="codigoDep" id="codigoDep" required value="@Model.proyeForm.codigoDep">
                 <option value="">Seleccione un departamento</option>
                 @foreach (var codigo in Model.listaCodigosDep)
                 {

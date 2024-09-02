@@ -13,8 +13,7 @@ namespace AppWeb.Pages.Proyectos
         public List<string> listaCodigosDep = new List<string>();
         public void OnGet()
         {
-            Conexion connection = new Conexion();
-            string connectionString = connection.cadena;
+            string connectionString = "Data source=" + Environment.MachineName + "; Initial Catalog=GestionProyectosTareas; Integrated Security=True";
 
             try
             {
@@ -45,18 +44,6 @@ namespace AppWeb.Pages.Proyectos
                             }
                         }
                     }
-                    string sqlDepartamentos = "SELECT * FROM Departamento";
-                    using (SqlCommand command = new SqlCommand(sqlDepartamentos, connection))
-                    {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                DepartamentoInfo departamento = new DepartamentoInfo();
-                                listaCodigosDep.Add(reader.GetString(0));
-                            }
-                        }
-                    }
                 }
             }
             catch (Exception ex)
@@ -78,5 +65,12 @@ namespace AppWeb.Pages.Proyectos
         public string fecha_inicio { get; set; }
         public string fecha_cierre { get; set; }
         public string codigoDep { get; set; }
+    }
+
+    public class DepartamentoInfo
+    {
+        public string codigo { get; set; }
+        public string nombre { get; set; }
+        public string cedula_jefe { get; set; }
     }
 }
