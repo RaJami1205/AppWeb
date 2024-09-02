@@ -26,10 +26,10 @@ namespace AppWeb.Pages.Tarea
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@nombre", Tarea.nombre);
+                    command.Parameters.AddWithValue("@nombre", Tarea.nombre_tarea);
                     command.Parameters.AddWithValue("@tipo", Tarea.tipo);
                     command.Parameters.AddWithValue("@descripcion", Tarea.descripcion);
-                    command.Parameters.AddWithValue("@horas", Tarea.horas);
+                    command.Parameters.AddWithValue("@horas", Tarea.cantidad_horas);
                     command.Parameters.AddWithValue("@nombre_proyecto", Tarea.nombre_proyecto);
 
                     connection.Open();
@@ -38,14 +38,4 @@ namespace AppWeb.Pages.Tarea
             }
         }
     }
-
-    public class TareaInfo
-    {
-        public string nombre { get; set; }
-        public string tipo { get; set; }
-        public string descripcion { get; set; }
-        public int horas { get; set; }
-        public string nombre_proyecto { get; set; }
-    }
 }
-

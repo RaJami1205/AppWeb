@@ -2,16 +2,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using AppWeb.Pages;
 
 namespace AppWeb.Pages.Proyectos
 {
     public class Proyect_listModel : PageModel
     {
+
         public List<ProyectoInfo> listaProyectos = new List<ProyectoInfo>();
+        public List<string> listaCodigosDep = new List<string>();
         public void OnGet()
         {
-
-            string connectionString = "Data source=" + Environment.MachineName + "; Initial Catalog=GestionProyectosTareas; Integrated Security=True";
+            Conexion connection = new Conexion();
+            string connectionString = connection.cadena;
 
             try
             {
@@ -39,6 +42,18 @@ namespace AppWeb.Pages.Proyectos
                                 Proyectoinfo.codigoDep = "" + reader.GetInt32(8);
 
                                 listaProyectos.Add(Proyectoinfo);
+                            }
+                        }
+                    }
+                    string sqlDepartamentos = "SELECT * FROM Departamento";
+                    using (SqlCommand command = new SqlCommand(sqlDepartamentos, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                DepartamentoInfo departamento = new DepartamentoInfo();
+                                listaCodigosDep.Add(reader.GetString(0));
                             }
                         }
                     }

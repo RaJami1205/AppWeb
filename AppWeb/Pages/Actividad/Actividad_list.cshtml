@@ -9,6 +9,7 @@
     <title>Lista de Actividades</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
+<a class='btn btn-primary btn-sm' href=/Actividad/Actividad_form> Nueva Actividad</a>
 <body>
     <div class="container mt-5">
         <h2 class="mb-4">Lista de Actividades</h2>
@@ -41,6 +42,9 @@
                             <td>@actividad.etapa</td>
                             <td>@actividad.nombre_tarea</td>
                             <td>@actividad.cedulaEmpleado</td>
+                            <td>
+                                <a class='btn btn-danger btn-sm'> Borrar</a>
+                            </td>
                         </tr>
                     }
                 </tbody>

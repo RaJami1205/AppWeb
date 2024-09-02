@@ -43,6 +43,14 @@ namespace AppWeb.Pages.Proyectos
                     connection.Open();
                     command.ExecuteNonQuery();
                 }
+            }
+        }
+
+        public void OnGet()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
                 string sqlDepartamentos = "SELECT * FROM Departamento";
                 using (SqlCommand command = new SqlCommand(sqlDepartamentos, connection))
                 {
@@ -51,7 +59,7 @@ namespace AppWeb.Pages.Proyectos
                         while (reader.Read())
                         {
                             DepartamentoInfo departamento = new DepartamentoInfo();
-                            listaCodigosDep.Add(reader.GetString(0));
+                            listaCodigosDep.Add("" + reader.GetInt32(0));
                         }
                     }
                 }

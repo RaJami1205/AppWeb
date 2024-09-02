@@ -3,16 +3,48 @@
 @{
 }
 
-<br>
-<h2>Lista de Tareas</h2>
-<a class="btn btn-primary btn-sm" href="/Tarea/Tarea_form"> Nueva Tarea</a>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Hora</th>
-            <th>Tipo</th>
-        </tr>
-    </thead>
-</table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<a class='btn btn-primary btn-sm' href=/Tarea/tarea_form> Nueva Tarea</a>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Lista de Tareas</h2>
+        @if (Model.listaTareas.Count == 0)
+        {
+            <p>No hay tareas disponibles.</p>
+        }
+        else
+        {
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nombre de la Tarea</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                        <th>Cantidad de Horas</th>
+                        <th>Nombre del Proyecto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tarea in Model.listaTareas)
+                    {
+                        <tr>
+                            <td>@tarea.nombre_tarea</td>
+                            <td>@tarea.tipo</td>
+                            <td>@tarea.descripcion</td>
+                            <td>@tarea.cantidad_horas</td>
+                            <td>@tarea.nombre_proyecto</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</body>
+</html>
