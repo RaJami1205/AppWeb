@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using AppWeb.Pages;
-using Gestor_de_inventario_Super_Los_Patitos;
+using GestorProyectos;
 
 namespace AppWeb.Pages.Proyectos
 {

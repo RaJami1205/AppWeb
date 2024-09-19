@@ -1,4 +1,4 @@
-using Gestor_de_inventario_Super_Los_Patitos;
+using GestorProyectos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
@@ -13,7 +13,7 @@ namespace AppWeb.Pages.Empleado
         public EmpleadoProyecto empleadoProyecto { get; set; } = new EmpleadoProyecto();
         public List<string> listaNombresProyectos { get; set; } = new List<string>();
         public string mensaje_error = "";
-        public string mensaje_exito = "El empleado fue añadido exitosamente";
+        public string mensaje_exito = "";
         public Conexion conexionBD = new Conexion();
 
         public void OnPost()
@@ -60,7 +60,7 @@ namespace AppWeb.Pages.Empleado
                 Empleado.apellido2 = "";
                 Empleado.telefono = "";
                 empleadoProyecto.nombre_proyecto = "";
-                mensaje_exito = "Empleado añadido exitosamente";
+                mensaje_exito = "";
                 
             }
             catch (Exception ex)

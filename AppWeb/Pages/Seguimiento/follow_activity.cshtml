@@ -5,11 +5,18 @@
 
 <body>
     <section class="form-register">
-        <h1>Actividad</h1>
+        <h1>Nuevo Seguimiento</h1>
 
         <form method="post" autocomplete="off">
 
-            <input class="controls" type="datetime" name="fechaHora_inicio" id="fechaHora_inicio" placeholder="Ingrese la fecha y hora de inicio" required>
+            <!-- Agregar el combobox para seleccionar el código de departamento -->
+            <select class="controls" name="actividad" id="actividad" required>
+                <option value="">Seleccione un departamento</option>
+                @foreach (var codigo in Model.listaActividades)
+                {
+                    <option value="@codigo">@codigo</option>
+                }
+            </select>
 
             <label for="etapa">Asignar Etapa</label>
             <select class="controls" name="etapa" id="etapa">

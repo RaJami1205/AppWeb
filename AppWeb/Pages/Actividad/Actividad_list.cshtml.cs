@@ -1,5 +1,5 @@
 using AppWeb.Pages.Proyectos;
-using Gestor_de_inventario_Super_Los_Patitos;
+using GestorProyectos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;

@@ -1,5 +1,5 @@
 using AppWeb.Pages.Departamento;
-using Gestor_de_inventario_Super_Los_Patitos;
+using GestorProyectos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
@@ -36,7 +36,7 @@ namespace AppWeb.Pages.Proyectos
                     INSERT INTO Proyecto (nombre_proyecto, nombre_portafolio, descripcion, tipo, año, trimestre, fecha_inicio, fecha_cierre, codigoDep)
                     VALUES (@nombre_proyecto, @nombre_portafolio, @descripcion, @tipo, @año, @trimestre, @fecha_inicio, @fecha_cierre, @codigoDep)";
 
-                SqlCommand command=conexionBD.obtenerComando(query);
+                SqlCommand command = conexionBD.obtenerComando(query);
 
                 command.Parameters.AddWithValue("@nombre_proyecto", proyeForm.nombre_proyecto);
                 command.Parameters.AddWithValue("@nombre_portafolio", proyeForm.nombre_portafolio);
@@ -72,7 +72,7 @@ namespace AppWeb.Pages.Proyectos
         public void OnGet()
         {
             conexionBD.abrir();
-            string sqlDepartamentos = "SELECT codigoDep FROM Departamento";
+            string sqlDepartamentos = "SELECT codigo FROM Departamento";
             SqlCommand command= conexionBD.obtenerComando(sqlDepartamentos);
             using (SqlDataReader reader = command.ExecuteReader())
             {

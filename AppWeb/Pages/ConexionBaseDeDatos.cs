@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 
 
-namespace Gestor_de_inventario_Super_Los_Patitos
+namespace GestorProyectos
 {
     public class Conexion
     {
