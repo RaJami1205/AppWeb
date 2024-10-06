@@ -34,12 +34,14 @@ namespace AppWeb.Pages.Tarea
 
                         listaActividades.Add(actividad);
                     }
+                    conexionBD.cerrar();
                 }
             }
             catch (Exception ex)
             {
                 // Aquí se maneja el error
                 Console.WriteLine("Error: " + ex.Message);
+                conexionBD.cerrar();
             }
         }
     }

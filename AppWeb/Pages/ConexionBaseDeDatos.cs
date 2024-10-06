@@ -30,7 +30,7 @@ namespace GestorProyectos
             }
             catch (Exception ex)
             {
-                Console.WriteLine("ERROR: No se pudo abrir la BD" + ex.Message);
+                Console.WriteLine("ERROR: No se pudo abrir la BD " + ex.Message);
             }
         }
 
